@@ -1,6 +1,7 @@
 import HomePageClient from './home-page-client';
 import HomePageFavsClient from './home-page-favs-client';
 import { getCharacters } from './actions/getCharacters';
+import { Suspense } from 'react';
 
 export default async function HomePage({
   searchParams,
@@ -13,7 +14,11 @@ export default async function HomePage({
 
   if (!favoritesFlag) {
     const characters = await getCharacters(searchQuery);
-    return <HomePageClient characters={characters} />;
+    return (
+      <Suspense>
+        <HomePageClient characters={characters} />
+      </Suspense>
+    );
   } else {
     return <HomePageFavsClient />;
   }
