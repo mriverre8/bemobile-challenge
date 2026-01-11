@@ -104,4 +104,6 @@ bemobile-challenge/
 
 ## Additional Information
 
-I've finally used Comic Vine API since the given one was deprecated/removed. I've also added CI/CD Pipelines with github actions and deployed the code.
+I've finally used Comic Vine API since the given one was deprecated/removed. I've also added CI/CD Pipelines with github actions and deployed the code on Vercel.
+
+Site URL: https://bemobile-challenge.vercel.app/
