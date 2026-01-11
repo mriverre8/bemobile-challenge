@@ -1,0 +1,26 @@
+.comic_item_container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comic_image {
+  width: 160px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.comic_item_container span {
+  font-size: 17px;
+  font-weight: 500;
+  display: -webkit-box;
+  line-clamp: 4;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.comic_item_container p {
+  font-size: 11px;
+}
