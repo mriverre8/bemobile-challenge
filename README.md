@@ -58,6 +58,14 @@ Run the linter:
 npm run lint
 ```
 
+### Format
+
+Run the formatter:
+
+```bash
+npm run format
+```
+
 ### Build for Production
 
 Build and start the production server:
