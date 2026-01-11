@@ -1,6 +1,6 @@
-"use server";
+'use server';
 
-import { Character } from "@/types/character";
+import { Character } from '@/types/character';
 
 export const getCharacters = async (
   searchQuery?: string
@@ -14,7 +14,7 @@ export const getCharacters = async (
     const data = await res.json();
     return data.results;
   } catch (error) {
-    console.error("Error fetching characters:", error);
+    console.error('Error fetching characters:', error);
     return [];
   }
 };

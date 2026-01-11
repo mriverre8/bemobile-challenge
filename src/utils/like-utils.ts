@@ -1,4 +1,4 @@
-import { Character } from "@/types/character";
+import { Character } from '@/types/character';
 
 /** * Checks if a character is liked based on its ID.
  * @param likedItems - Array of liked characters.

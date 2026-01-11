@@ -1,25 +1,25 @@
-import Card from "@/components/card";
-import { render, act } from "@testing-library/react";
-import { useStore } from "@/context/store";
+import Card from '@/components/card';
+import { render, act } from '@testing-library/react';
+import { useStore } from '@/context/store';
 
 const mockPush = jest.fn();
 const mockSetLikedItems = jest.fn();
 
-jest.mock("@/context/store", () => ({
+jest.mock('@/context/store', () => ({
   useStore: jest.fn(),
 }));
 
-jest.mock("next/navigation", () => ({
+jest.mock('next/navigation', () => ({
   useRouter: jest.fn(() => ({
     push: mockPush,
   })),
 }));
 
-describe("Card Component Test Battery", () => {
+describe('Card Component Test Battery', () => {
   const characterMock = {
     id: 1,
-    name: "Test Character One",
-    image: { super_url: "http://example.com/image.jpg" },
+    name: 'Test Character One',
+    image: { super_url: 'http://example.com/image.jpg' },
   };
 
   beforeEach(() => {
@@ -33,20 +33,20 @@ describe("Card Component Test Battery", () => {
     jest.clearAllMocks();
   });
 
-  it("renders without crashing", () => {
+  it('renders without crashing', () => {
     const { getByTestId } = render(<Card character={characterMock} />);
-    const card = getByTestId("card-component");
+    const card = getByTestId('card-component');
     expect(card).not.toBeNull();
   });
 
-  it("renders without crashing when character name is missing", () => {
+  it('renders without crashing when character name is missing', () => {
     const characterWithoutName = { ...characterMock, name: null };
     const { getByTestId } = render(<Card character={characterWithoutName} />);
-    const card = getByTestId("card-component");
+    const card = getByTestId('card-component');
     expect(card).not.toBeNull();
   });
 
-  it("redirects to character detail page on image click", () => {
+  it('redirects to character detail page on image click', () => {
     const { getByAltText } = render(<Card character={characterMock} />);
     const image = getByAltText(characterMock.name);
     act(() => {
@@ -55,9 +55,9 @@ describe("Card Component Test Battery", () => {
     expect(mockPush).toHaveBeenCalledWith(`/character/${characterMock.id}`);
   });
 
-  it("likes character on heart icon click when its not liked", () => {
+  it('likes character on heart icon click when its not liked', () => {
     const { getByAltText } = render(<Card character={characterMock} />);
-    const heartIcon = getByAltText("Heart Icon");
+    const heartIcon = getByAltText('Heart Icon');
     act(() => {
       heartIcon.click();
     });
@@ -71,13 +71,13 @@ describe("Card Component Test Battery", () => {
     expect(resultAfterLike).toEqual([characterMock]);
   });
 
-  it("unlikes character on heart icon click when its already liked", () => {
+  it('unlikes character on heart icon click when its already liked', () => {
     (useStore as jest.Mock).mockReturnValue({
       likedItems: [characterMock],
       setLikedItems: mockSetLikedItems,
     });
     const { getByAltText } = render(<Card character={characterMock} />);
-    const heartIcon = getByAltText("Heart Icon");
+    const heartIcon = getByAltText('Heart Icon');
     act(() => {
       heartIcon.click();
     });

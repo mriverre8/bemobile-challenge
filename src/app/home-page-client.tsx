@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import Card from "@/components/card";
-import styles from "@/css/home-page.module.css";
-import Image from "next/image";
-import { Character } from "@/types/character";
-import { useState, useEffect, useCallback } from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import Card from '@/components/card';
+import styles from '@/css/home-page.module.css';
+import Image from 'next/image';
+import { Character } from '@/types/character';
+import { useState, useEffect, useCallback } from 'react';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 
 export default function HomePageClient({
   characters,
@@ -16,16 +16,16 @@ export default function HomePageClient({
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = useCallback(
     (query: string) => {
       const params = new URLSearchParams(searchParams.toString());
 
       if (query.trim()) {
-        params.set("searchQuery", query.trim());
+        params.set('searchQuery', query.trim());
       } else {
-        params.delete("searchQuery");
+        params.delete('searchQuery');
       }
 
       const newUrl = params.toString()
@@ -39,7 +39,7 @@ export default function HomePageClient({
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (searchQuery !== (searchParams.get("searchQuery") || "")) {
+      if (searchQuery !== (searchParams.get('searchQuery') || '')) {
         handleSearch(searchQuery);
       }
     }, 700);
@@ -48,7 +48,10 @@ export default function HomePageClient({
   }, [searchQuery, handleSearch, searchParams]);
 
   return (
-    <main className={styles.main} data-testid="home-page-client">
+    <main
+      className={styles.main}
+      data-testid="home-page-client"
+    >
       <div className={styles.main_container}>
         <div className={styles.search_container}>
           <div className={styles.search_bar}>

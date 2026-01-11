@@ -1,6 +1,6 @@
-"use server";
+'use server';
 
-import { CharacterInfo } from "@/types/character";
+import { CharacterInfo } from '@/types/character';
 
 export const getCharacterById = async (
   id: string
@@ -9,12 +9,12 @@ export const getCharacterById = async (
     const apiUrl = `http://comicvine.gamespot.com/api/character/4005-${id}?api_key=${process.env.COMIC_VINE_API_KEY}&format=json&field_list=name,image,id,deck,issue_credits`;
     const res = await fetch(apiUrl);
     const data = await res.json();
-    if (data.error !== "OK") {
+    if (data.error !== 'OK') {
       return null;
     }
     return data.results;
   } catch (error) {
-    console.error("Error fetching character:", error);
+    console.error('Error fetching character:', error);
     return null;
   }
 };

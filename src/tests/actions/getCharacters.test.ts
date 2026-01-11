@@ -1,30 +1,30 @@
-import { getCharacters } from "@/app/actions/getCharacters";
+import { getCharacters } from '@/app/actions/getCharacters';
 
 global.fetch = jest.fn();
-process.env.COMIC_VINE_API_KEY = "test_api_key";
+process.env.COMIC_VINE_API_KEY = 'test_api_key';
 
-describe("getCharacters Test Battery", () => {
+describe('getCharacters Test Battery', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it("should fetch characters successfully", async () => {
+  it('should fetch characters successfully', async () => {
     const mockResponse = {
       results: [
         {
           id: 1,
-          name: "Test Character One",
-          image: { super_url: "http://example.com/image.jpg" },
+          name: 'Test Character One',
+          image: { super_url: 'http://example.com/image.jpg' },
         },
         {
           id: 2,
-          name: "Test Character Two",
-          image: { super_url: "http://example.com/image.jpg" },
+          name: 'Test Character Two',
+          image: { super_url: 'http://example.com/image.jpg' },
         },
       ],
     };
 
-    jest.spyOn(global, "fetch").mockResolvedValueOnce({
+    jest.spyOn(global, 'fetch').mockResolvedValueOnce({
       json: async () => mockResponse,
       ok: true,
     } as Response);
@@ -34,28 +34,28 @@ describe("getCharacters Test Battery", () => {
     expect(result).toEqual(mockResponse.results);
     expect(global.fetch).toHaveBeenCalledWith(
       expect.stringContaining(
-        "http://comicvine.gamespot.com/api/characters?api_key=test_api_key&format=json&limit=50&field_list=name,image,id"
+        'http://comicvine.gamespot.com/api/characters?api_key=test_api_key&format=json&limit=50&field_list=name,image,id'
       )
     );
   });
 
-  it("should fetch characters with search query", async () => {
+  it('should fetch characters with search query', async () => {
     const mockResponse = {
       results: [
         {
           id: 1,
-          name: "Test Character One",
-          image: { super_url: "http://example.com/image.jpg" },
+          name: 'Test Character One',
+          image: { super_url: 'http://example.com/image.jpg' },
         },
       ],
     };
 
-    jest.spyOn(global, "fetch").mockResolvedValueOnce({
+    jest.spyOn(global, 'fetch').mockResolvedValueOnce({
       json: async () => mockResponse,
       ok: true,
     } as Response);
 
-    const searchQuery = "One";
+    const searchQuery = 'One';
 
     const result = await getCharacters(searchQuery);
     expect(result).toEqual(mockResponse.results);
@@ -64,10 +64,10 @@ describe("getCharacters Test Battery", () => {
     );
   });
 
-  it("should handle fetch error gracefully", async () => {
+  it('should handle fetch error gracefully', async () => {
     jest
-      .spyOn(global, "fetch")
-      .mockRejectedValueOnce(new Error("Test Fetch Error"));
+      .spyOn(global, 'fetch')
+      .mockRejectedValueOnce(new Error('Test Fetch Error'));
 
     const result = await getCharacters();
     expect(result).toEqual([]);

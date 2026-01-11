@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import styles from "@/css/components/header.module.css";
-import { useStore } from "@/context/store";
-import { useRouter, useSearchParams } from "next/navigation";
+import Image from 'next/image';
+import styles from '@/css/components/header.module.css';
+import { useStore } from '@/context/store';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function Header() {
   const router = useRouter();
@@ -15,19 +15,22 @@ export default function Header() {
     const params = new URLSearchParams(searchParams.toString());
 
     if (flag) {
-      params.set("favorites", "true");
-      params.delete("searchQuery");
+      params.set('favorites', 'true');
+      params.delete('searchQuery');
     } else {
-      params.delete("favorites");
+      params.delete('favorites');
     }
 
-    const newUrl = params.toString() ? `/?${params.toString()}` : "/";
+    const newUrl = params.toString() ? `/?${params.toString()}` : '/';
 
     router.push(newUrl);
   };
 
   return (
-    <div className={styles.header} data-testid="header-component">
+    <div
+      className={styles.header}
+      data-testid="header-component"
+    >
       <div className={styles.header_container}>
         <Image
           className={styles.logo}

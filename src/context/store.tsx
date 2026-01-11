@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Character } from "@/types/character";
+import { Character } from '@/types/character';
 import {
   createContext,
   useContext,
@@ -8,7 +8,7 @@ import {
   ReactNode,
   SetStateAction,
   Dispatch,
-} from "react";
+} from 'react';
 
 interface ContextType {
   likedItems: Character[];

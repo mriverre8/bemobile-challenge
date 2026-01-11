@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import ComicItem from "@/components/comic-item";
-import { useStore } from "@/context/store";
-import styles from "@/css/character-page.module.css";
-import { CharacterInfo } from "@/types/character";
-import { Comic } from "@/types/comic";
-import { isCharacterLiked } from "@/utils/like-utils";
-import Image from "next/image";
+import ComicItem from '@/components/comic-item';
+import { useStore } from '@/context/store';
+import styles from '@/css/character-page.module.css';
+import { CharacterInfo } from '@/types/character';
+import { Comic } from '@/types/comic';
+import { isCharacterLiked } from '@/utils/like-utils';
+import Image from 'next/image';
 
 export default function CharacterPageClient({
   character,
@@ -17,8 +17,8 @@ export default function CharacterPageClient({
 }) {
   const { likedItems, setLikedItems } = useStore();
 
-  const safeName = character?.name ?? "Unknown";
-  const safeDeck = character?.deck ?? "No description available.";
+  const safeName = character?.name ?? 'Unknown';
+  const safeDeck = character?.deck ?? 'No description available.';
 
   const like = () => {
     setLikedItems((prev) => {
@@ -33,7 +33,10 @@ export default function CharacterPageClient({
   };
 
   return (
-    <main className={styles.main} data-testid="character-page-client">
+    <main
+      className={styles.main}
+      data-testid="character-page-client"
+    >
       <div className={styles.character_container}>
         <div className={styles.character_info_container}>
           <Image
@@ -52,8 +55,8 @@ export default function CharacterPageClient({
                 className={styles.heart_icon}
                 src={
                   isCharacterLiked(likedItems, character.id)
-                    ? "/heart-icon-default.svg"
-                    : "/heart-icon-unselected-2.svg"
+                    ? '/heart-icon-default.svg'
+                    : '/heart-icon-unselected-2.svg'
                 }
                 alt="Heart Icon"
                 width={26}

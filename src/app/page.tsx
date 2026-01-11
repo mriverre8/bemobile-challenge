@@ -1,6 +1,6 @@
-import HomePageClient from "./home-page-client";
-import HomePageFavsClient from "./home-page-favs-client";
-import { getCharacters } from "./actions/getCharacters";
+import HomePageClient from './home-page-client';
+import HomePageFavsClient from './home-page-favs-client';
+import { getCharacters } from './actions/getCharacters';
 
 export default async function HomePage({
   searchParams,
@@ -8,8 +8,8 @@ export default async function HomePage({
   searchParams: Promise<{ searchQuery?: string; favorites?: string }>;
 }) {
   const params = await searchParams;
-  const searchQuery = params.searchQuery || "";
-  const favoritesFlag = params.favorites === "true" ? true : false;
+  const searchQuery = params.searchQuery || '';
+  const favoritesFlag = params.favorites === 'true' ? true : false;
 
   if (!favoritesFlag) {
     const characters = await getCharacters(searchQuery);

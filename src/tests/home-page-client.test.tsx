@@ -1,38 +1,38 @@
-import { render, fireEvent, act } from "@testing-library/react";
-import { useStore } from "@/context/store";
-import HomePageClient from "@/app/home-page-client";
+import { render, fireEvent, act } from '@testing-library/react';
+import { useStore } from '@/context/store';
+import HomePageClient from '@/app/home-page-client';
 
 const mockPush = jest.fn();
 const mockSetLikedItems = jest.fn();
 
-jest.mock("@/context/store", () => ({
+jest.mock('@/context/store', () => ({
   useStore: jest.fn(),
 }));
 
-jest.mock("next/navigation", () => ({
+jest.mock('next/navigation', () => ({
   useRouter: jest.fn(() => ({
     push: mockPush,
   })),
   useSearchParams: jest.fn(() => new URLSearchParams()),
-  usePathname: jest.fn(() => "/"),
+  usePathname: jest.fn(() => '/'),
 }));
 
-describe("HomePageClient Test Battery", () => {
+describe('HomePageClient Test Battery', () => {
   const characters = [
     {
       id: 1,
-      name: "Test Character One",
-      image: { super_url: "http://example.com/image.jpg" },
+      name: 'Test Character One',
+      image: { super_url: 'http://example.com/image.jpg' },
     },
     {
       id: 2,
-      name: "Test Character Two",
-      image: { super_url: "http://example.com/image2.jpg" },
+      name: 'Test Character Two',
+      image: { super_url: 'http://example.com/image2.jpg' },
     },
     {
       id: 3,
-      name: "Test Character Three",
-      image: { super_url: "http://example.com/image3.jpg" },
+      name: 'Test Character Three',
+      image: { super_url: 'http://example.com/image3.jpg' },
     },
   ];
 
@@ -48,53 +48,53 @@ describe("HomePageClient Test Battery", () => {
     jest.useRealTimers();
   });
 
-  it("renders without crashing", () => {
+  it('renders without crashing', () => {
     const { getByTestId } = render(<HomePageClient characters={characters} />);
-    const page = getByTestId("home-page-client");
+    const page = getByTestId('home-page-client');
     expect(page).not.toBeNull();
   });
 
-  it("renders only 1 result", () => {
+  it('renders only 1 result', () => {
     const { getByText } = render(
       <HomePageClient characters={characters.slice(0, 1)} />
     );
-    const resultsText = getByText("1 RESULT");
+    const resultsText = getByText('1 RESULT');
     expect(resultsText).not.toBeNull();
   });
 
-  it("updates search input value and triggers router push after debounce timeout", () => {
+  it('updates search input value and triggers router push after debounce timeout', () => {
     jest.useFakeTimers();
     const { getByTestId } = render(<HomePageClient characters={characters} />);
-    const searchInput = getByTestId("search-input") as HTMLInputElement;
+    const searchInput = getByTestId('search-input') as HTMLInputElement;
 
     act(() => {
-      fireEvent.change(searchInput, { target: { value: "Batman" } });
+      fireEvent.change(searchInput, { target: { value: 'Batman' } });
     });
 
-    expect(searchInput.value).toBe("Batman");
+    expect(searchInput.value).toBe('Batman');
 
     act(() => {
       jest.advanceTimersByTime(700);
     });
 
-    expect(mockPush).toHaveBeenCalledWith("/?searchQuery=Batman");
+    expect(mockPush).toHaveBeenCalledWith('/?searchQuery=Batman');
   });
 
-  it("updates search input value with empty string and triggers router push after debounce timeout", () => {
+  it('updates search input value with empty string and triggers router push after debounce timeout', () => {
     jest.useFakeTimers();
     const { getByTestId } = render(<HomePageClient characters={characters} />);
-    const searchInput = getByTestId("search-input") as HTMLInputElement;
+    const searchInput = getByTestId('search-input') as HTMLInputElement;
 
     act(() => {
-      fireEvent.change(searchInput, { target: { value: " " } });
+      fireEvent.change(searchInput, { target: { value: ' ' } });
     });
 
-    expect(searchInput.value).toBe(" ");
+    expect(searchInput.value).toBe(' ');
 
     act(() => {
       jest.advanceTimersByTime(700);
     });
 
-    expect(mockPush).toHaveBeenCalledWith("/");
+    expect(mockPush).toHaveBeenCalledWith('/');
   });
 });

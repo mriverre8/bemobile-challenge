@@ -1,22 +1,25 @@
-"use client";
+'use client';
 
-import Card from "@/components/card";
-import styles from "@/css/home-page.module.css";
-import Image from "next/image";
-import { useState } from "react";
+import Card from '@/components/card';
+import styles from '@/css/home-page.module.css';
+import Image from 'next/image';
+import { useState } from 'react';
 
-import { useStore } from "@/context/store";
+import { useStore } from '@/context/store';
 
 export default function HomePageFavsClient() {
   const { likedItems } = useStore();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
 
   const filteredItems = likedItems.filter((item) =>
     item.name?.toLowerCase().includes(searchQuery.trim().toLowerCase())
   );
 
   return (
-    <main className={styles.main_favs} data-testid="home-page-favs-client">
+    <main
+      className={styles.main_favs}
+      data-testid="home-page-favs-client"
+    >
       <div className={styles.main_container}>
         <h2 className={styles.favorites_title}>FAVORITES</h2>
         <div className={styles.search_container_favs}>

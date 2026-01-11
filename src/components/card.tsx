@@ -1,10 +1,10 @@
-"use client";
-import Image from "next/image";
-import styles from "@/css/components/card.module.css";
-import { useStore } from "@/context/store";
-import { Character } from "@/types/character";
-import { useRouter } from "next/navigation";
-import { isCharacterLiked } from "@/utils/like-utils";
+'use client';
+import Image from 'next/image';
+import styles from '@/css/components/card.module.css';
+import { useStore } from '@/context/store';
+import { Character } from '@/types/character';
+import { useRouter } from 'next/navigation';
+import { isCharacterLiked } from '@/utils/like-utils';
 
 interface Props {
   character: Character;
@@ -14,7 +14,7 @@ export default function Card({ character }: Props) {
   const router = useRouter();
 
   const { likedItems, setLikedItems } = useStore();
-  const safeName = character?.name ?? "Unknown";
+  const safeName = character?.name ?? 'Unknown';
 
   const viewItem = () => {
     router.push(`/character/${character.id}`);
@@ -33,7 +33,10 @@ export default function Card({ character }: Props) {
   };
 
   return (
-    <div className={styles.card} data-testid="card-component">
+    <div
+      className={styles.card}
+      data-testid="card-component"
+    >
       <Image
         className={styles.card_image}
         src={character.image.super_url}
@@ -51,8 +54,8 @@ export default function Card({ character }: Props) {
           className={styles.heart_icon}
           src={
             isCharacterLiked(likedItems, character.id)
-              ? "/heart-icon-default.svg"
-              : "/heart-icon-unselected-1.svg"
+              ? '/heart-icon-default.svg'
+              : '/heart-icon-unselected-1.svg'
           }
           alt="Heart Icon"
           width={12}

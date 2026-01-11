@@ -1,7 +1,7 @@
-import { getCharacterById } from "@/app/actions/getCharacterById";
-import CharacterPageClient from "./character-page-client";
-import { getCharacterComics } from "@/app/actions/getCharacterComics";
-import { Comic } from "@/types/comic";
+import { getCharacterById } from '@/app/actions/getCharacterById';
+import CharacterPageClient from './character-page-client';
+import { getCharacterComics } from '@/app/actions/getCharacterComics';
+import { Comic } from '@/types/comic';
 
 export default async function CharacterPage({
   params,
@@ -21,5 +21,10 @@ export default async function CharacterPage({
     comics = await getCharacterComics(character.issue_credits);
   }
 
-  return <CharacterPageClient character={character} comics={comics} />;
+  return (
+    <CharacterPageClient
+      character={character}
+      comics={comics}
+    />
+  );
 }
