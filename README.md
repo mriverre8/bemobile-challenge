@@ -104,4 +104,4 @@ bemobile-challenge/
 
 ## Additional Information
 
-I've finally used Comic Vine API since the given one was deprecated/removed.
+I've finally used Comic Vine API since the given one was deprecated/removed. I've also added CI/CD Pipelines with github actions.
