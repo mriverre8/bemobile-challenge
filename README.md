@@ -1,6 +1,16 @@
 # Bemobile Challenge
 
-This is the Bemobile Challenge I've been given, developed with [Next.js](https://nextjs.org).
+This is my code for the Bemobile Challenge, developed with [Next.js](https://nextjs.org).
+
+### Stack
+
+- Next.js
+- Typescript
+- CSS
+- React Testing Library
+- Jest
+
+> ESLint and Prettier for linting and formatting
 
 ## Getting Started
 
