@@ -54,12 +54,14 @@
   cursor: pointer;
 }
 
-.character_info h1 {
+.character_title_container h1 {
   font-size: 31px;
   letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0;
 }
 
-.character_info h1,
 .character_info p {
   color: var(--primary);
   margin: 0;
@@ -114,7 +116,6 @@
 
   .character_title_container h1 {
     font-size: 37px;
-    text-transform: uppercase;
   }
 
   .character_image {
