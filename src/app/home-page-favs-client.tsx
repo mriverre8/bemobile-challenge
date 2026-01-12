@@ -34,6 +34,8 @@ export default function HomePageFavsClient() {
             />
             <input
               data-testid="search-input-favs"
+              id="search-input-favs"
+              name="search-input-favs"
               type="text"
               placeholder="SEARCH A CHARACTER..."
               value={searchQuery}

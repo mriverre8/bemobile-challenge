@@ -65,6 +65,8 @@ export default function HomePageClient({
             />
             <input
               data-testid="search-input"
+              id="search-input"
+              name="search-input"
               type="text"
               placeholder="SEARCH A CHARACTER..."
               value={searchQuery}
