@@ -1,6 +1,6 @@
 # Bemobile Challenge
 
-This is my code for the Bemobile Challenge, developed with [Next.js](https://nextjs.org).
+This is my solution for the Bemobile Challenge, developed with [Next.js](https://nextjs.org).
 
 ### Stack
 
