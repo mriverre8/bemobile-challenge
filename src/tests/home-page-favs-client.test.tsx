@@ -2,7 +2,7 @@ import { render, fireEvent, act } from '@testing-library/react';
 import { useStore } from '@/context/store';
 import HomePageFavsClient from '@/app/home-page-favs-client';
 
-const mockSetLikedItems = jest.fn();
+const mockDispatchLikedCharacters = jest.fn();
 
 jest.mock('@/context/store', () => ({
   useStore: jest.fn(),
@@ -15,7 +15,7 @@ jest.mock('next/navigation', () => ({
 }));
 
 describe('HomePageFavsClient Test Battery', () => {
-  const likedItems = [
+  const likedCharacters = [
     {
       id: 1,
       name: 'Test Character One',
@@ -35,8 +35,8 @@ describe('HomePageFavsClient Test Battery', () => {
 
   beforeEach(() => {
     (useStore as jest.Mock).mockReturnValue({
-      likedItems: [],
-      setLikedItems: mockSetLikedItems,
+      likedCharacters: [],
+      dispatchLikedCharacters: mockDispatchLikedCharacters,
     });
   });
 
@@ -50,7 +50,7 @@ describe('HomePageFavsClient Test Battery', () => {
     expect(page).not.toBeNull();
   });
 
-  it('displays no results when likedItems is empty', () => {
+  it('displays no results when likedCharacters is empty', () => {
     const { getByText } = render(<HomePageFavsClient />);
     const resultsText = getByText('0 RESULTS');
     expect(resultsText).not.toBeNull();
@@ -58,8 +58,8 @@ describe('HomePageFavsClient Test Battery', () => {
 
   it('displays correct number of results', () => {
     (useStore as jest.Mock).mockReturnValue({
-      likedItems: likedItems,
-      setLikedItems: mockSetLikedItems,
+      likedCharacters: likedCharacters,
+      dispatchLikedCharacters: mockDispatchLikedCharacters,
     });
     const { getByText } = render(<HomePageFavsClient />);
     const resultsText = getByText('3 RESULTS');
@@ -68,8 +68,8 @@ describe('HomePageFavsClient Test Battery', () => {
 
   it('filters characters based on search input', () => {
     (useStore as jest.Mock).mockReturnValue({
-      likedItems: likedItems,
-      setLikedItems: mockSetLikedItems,
+      likedCharacters: likedCharacters,
+      dispatchLikedCharacters: mockDispatchLikedCharacters,
     });
     const { getByTestId, getByText } = render(<HomePageFavsClient />);
     const searchInput = getByTestId('search-input-favs');

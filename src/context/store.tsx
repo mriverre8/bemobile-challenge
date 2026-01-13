@@ -4,25 +4,31 @@ import { Character } from '@/types/character';
 import {
   createContext,
   useContext,
-  useState,
+  useReducer,
   ReactNode,
-  SetStateAction,
   Dispatch,
 } from 'react';
+import {
+  LikedCharactersAction,
+  likedCharactersReducer,
+} from './liked-characters-reducer';
 
 interface ContextType {
-  likedItems: Character[];
-  setLikedItems: Dispatch<SetStateAction<Character[]>>;
+  likedCharacters: Character[];
+  dispatchLikedCharacters: Dispatch<LikedCharactersAction>;
 }
 
 export const Context = createContext<ContextType | undefined>(undefined);
 
 export function ContextProvider({ children }: { children: ReactNode }) {
-  const [likedItems, setLikedItems] = useState<Character[]>([]);
+  const [likedCharacters, dispatchLikedCharacters] = useReducer(
+    likedCharactersReducer,
+    []
+  );
 
   const value = {
-    likedItems,
-    setLikedItems,
+    likedCharacters,
+    dispatchLikedCharacters,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;

@@ -1,9 +1,10 @@
 import Card from '@/components/card';
 import { render, act } from '@testing-library/react';
 import { useStore } from '@/context/store';
+import { LIKED_CHARACTERS_ACTION_TYPES } from '@/context/liked-characters-reducer';
 
 const mockPush = jest.fn();
-const mockSetLikedItems = jest.fn();
+const mockDispatchLikedCharacters = jest.fn();
 
 jest.mock('@/context/store', () => ({
   useStore: jest.fn(),
@@ -24,8 +25,8 @@ describe('Card Component Test Battery', () => {
 
   beforeEach(() => {
     (useStore as jest.Mock).mockReturnValue({
-      likedItems: [],
-      setLikedItems: mockSetLikedItems,
+      likedCharacters: [],
+      dispatchLikedCharacters: mockDispatchLikedCharacters,
     });
   });
 
@@ -62,19 +63,16 @@ describe('Card Component Test Battery', () => {
       heartIcon.click();
     });
 
-    expect(mockSetLikedItems).toHaveBeenCalledTimes(1);
-
-    // Gets the function passed to setLikedItems
-    const updateFunction = mockSetLikedItems.mock.calls[0][0];
-
-    const resultAfterLike = updateFunction([]);
-    expect(resultAfterLike).toEqual([characterMock]);
+    expect(mockDispatchLikedCharacters).toHaveBeenCalledWith({
+      type: LIKED_CHARACTERS_ACTION_TYPES.ADD_CHARACTER,
+      payload: characterMock,
+    });
   });
 
   it('unlikes character on heart icon click when its already liked', () => {
     (useStore as jest.Mock).mockReturnValue({
-      likedItems: [characterMock],
-      setLikedItems: mockSetLikedItems,
+      likedCharacters: [characterMock],
+      dispatchLikedCharacters: mockDispatchLikedCharacters,
     });
     const { getByAltText } = render(<Card character={characterMock} />);
     const heartIcon = getByAltText('Heart Icon');
@@ -82,12 +80,9 @@ describe('Card Component Test Battery', () => {
       heartIcon.click();
     });
 
-    expect(mockSetLikedItems).toHaveBeenCalledTimes(1);
-
-    // Gets the function passed to setLikedItems
-    const updateFunction = mockSetLikedItems.mock.calls[0][0];
-
-    const resultAfterUnlike = updateFunction([characterMock]);
-    expect(resultAfterUnlike).toEqual([]);
+    expect(mockDispatchLikedCharacters).toHaveBeenCalledWith({
+      type: LIKED_CHARACTERS_ACTION_TYPES.REMOVE_CHARACTER,
+      payload: characterMock,
+    });
   });
 });

@@ -5,6 +5,7 @@ import { useStore } from '@/context/store';
 import { Character } from '@/types/character';
 import { useRouter } from 'next/navigation';
 import { isCharacterLiked } from '@/utils/like-utils';
+import { LIKED_CHARACTERS_ACTION_TYPES } from '@/context/liked-characters-reducer';
 
 interface Props {
   character: Character;
@@ -13,23 +14,13 @@ interface Props {
 export default function Card({ character }: Props) {
   const router = useRouter();
 
-  const { likedItems, setLikedItems } = useStore();
+  const { likedCharacters, dispatchLikedCharacters } = useStore();
   const safeName = character?.name ?? 'Unknown';
+
+  const isCharacterLikedFlag = isCharacterLiked(likedCharacters, character.id);
 
   const viewItem = () => {
     router.push(`/character/${character.id}`);
-  };
-
-  const like = () => {
-    setLikedItems((prev) => {
-      const exists = prev.some((i) => i.id === character.id);
-
-      if (exists) {
-        return prev.filter((i) => i.id !== character.id);
-      }
-
-      return [...prev, character];
-    });
   };
 
   return (
@@ -41,7 +32,7 @@ export default function Card({ character }: Props) {
         className={styles.card_image}
         src={character.image.super_url}
         alt={safeName}
-        loading="lazy"
+        loading="eager"
         unoptimized
         width={200}
         height={300}
@@ -53,14 +44,21 @@ export default function Card({ character }: Props) {
         <Image
           className={styles.heart_icon}
           src={
-            isCharacterLiked(likedItems, character.id)
+            isCharacterLikedFlag
               ? '/heart-icon-default.svg'
               : '/heart-icon-unselected-1.svg'
           }
           alt="Heart Icon"
           width={12}
           height={12}
-          onClick={() => like()}
+          onClick={() =>
+            dispatchLikedCharacters({
+              type: isCharacterLikedFlag
+                ? LIKED_CHARACTERS_ACTION_TYPES.REMOVE_CHARACTER
+                : LIKED_CHARACTERS_ACTION_TYPES.ADD_CHARACTER,
+              payload: character,
+            })
+          }
         />
       </div>
     </div>
