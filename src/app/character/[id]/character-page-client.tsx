@@ -1,6 +1,7 @@
 'use client';
 
 import ComicItem from '@/components/comic-item';
+import { LIKED_CHARACTERS_ACTION_TYPES } from '@/context/liked-characters-reducer';
 import { useStore } from '@/context/store';
 import styles from '@/css/character-page.module.css';
 import { CharacterInfo } from '@/types/character';
@@ -15,22 +16,12 @@ export default function CharacterPageClient({
   character: CharacterInfo;
   comics: Comic[];
 }) {
-  const { likedItems, setLikedItems } = useStore();
+  const { likedCharacters, dispatchLikedCharacters } = useStore();
 
   const safeName = character?.name ?? 'Unknown';
   const safeDeck = character?.deck ?? 'No description available.';
 
-  const like = () => {
-    setLikedItems((prev) => {
-      const exists = prev.some((i) => i.id === character.id);
-
-      if (exists) {
-        return prev.filter((i) => i.id !== character.id);
-      }
-
-      return [...prev, character];
-    });
-  };
+  const isCharacterLikedFlag = isCharacterLiked(likedCharacters, character.id);
 
   return (
     <main
@@ -43,7 +34,7 @@ export default function CharacterPageClient({
             className={styles.character_image}
             src={character.image.super_url}
             alt={safeName}
-            loading="lazy"
+            loading="eager"
             unoptimized
             width={200}
             height={300}
@@ -54,14 +45,21 @@ export default function CharacterPageClient({
               <Image
                 className={styles.heart_icon}
                 src={
-                  isCharacterLiked(likedItems, character.id)
+                  isCharacterLikedFlag
                     ? '/heart-icon-default.svg'
                     : '/heart-icon-unselected-2.svg'
                 }
                 alt="Heart Icon"
                 width={26}
                 height={26}
-                onClick={() => like()}
+                onClick={() =>
+                  dispatchLikedCharacters({
+                    type: isCharacterLikedFlag
+                      ? LIKED_CHARACTERS_ACTION_TYPES.REMOVE_CHARACTER
+                      : LIKED_CHARACTERS_ACTION_TYPES.ADD_CHARACTER,
+                    payload: character,
+                  })
+                }
               />
             </div>
             <p>{safeDeck}</p>

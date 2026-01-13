@@ -9,7 +9,7 @@ export default function Header() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const { likedItems } = useStore();
+  const { likedCharacters } = useStore();
 
   const setFavoriteFlag = (flag: boolean) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -51,7 +51,7 @@ export default function Header() {
             height={24}
             onClick={() => setFavoriteFlag(true)}
           />
-          <span>{likedItems.length}</span>
+          <span>{likedCharacters.length}</span>
         </div>
       </div>
     </div>

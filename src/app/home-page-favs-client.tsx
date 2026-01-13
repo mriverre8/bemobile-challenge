@@ -8,10 +8,10 @@ import { useState } from 'react';
 import { useStore } from '@/context/store';
 
 export default function HomePageFavsClient() {
-  const { likedItems } = useStore();
+  const { likedCharacters } = useStore();
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredItems = likedItems.filter((item) =>
+  const filteredItems = likedCharacters.filter((item) =>
     item.name?.toLowerCase().includes(searchQuery.trim().toLowerCase())
   );
 
