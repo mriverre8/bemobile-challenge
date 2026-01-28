@@ -3,7 +3,7 @@ import { useStore } from '@/context/store';
 import HomePageClient from '@/app/home-page-client';
 
 const mockPush = jest.fn();
-const mockSetLikedItems = jest.fn();
+const mockDispatchLikedCharacters = jest.fn();
 
 jest.mock('@/context/store', () => ({
   useStore: jest.fn(),
@@ -38,8 +38,8 @@ describe('HomePageClient Test Battery', () => {
 
   beforeEach(() => {
     (useStore as jest.Mock).mockReturnValue({
-      likedItems: [],
-      setLikedItems: mockSetLikedItems,
+      likedCharacters: [],
+      dispatchLikedCharacters: mockDispatchLikedCharacters,
     });
   });
 

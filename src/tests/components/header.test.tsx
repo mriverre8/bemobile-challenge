@@ -18,7 +18,7 @@ jest.mock('next/navigation', () => ({
 describe('Header Component Test Battery', () => {
   beforeEach(() => {
     (useStore as jest.Mock).mockReturnValue({
-      likedItems: [],
+      likedCharacters: [],
     });
   });
 
